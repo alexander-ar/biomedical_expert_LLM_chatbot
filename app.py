@@ -50,9 +50,6 @@ def process_question(new_question, chat_history):
         
     # append the latest user question    
     messages.append(user_question)
-
-    #print("messages after adding chat history:")
-    #print(messages) ############################################
         
     # run the model to generate chat completion object
     chat_completion = client.chat.completions.create(
