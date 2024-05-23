@@ -1,6 +1,5 @@
 # Load packages
-#from openai import OpenAI
-from langchain_openai import OpenAI
+from openai import OpenAI
 from dotenv import load_dotenv
 import os
 import argparse
@@ -9,7 +8,7 @@ import argparse
 load_dotenv()
 
 
-# initiate the AzureOpenAI client
+# initiate the OpenAI client
 client = OpenAI()
 
 
@@ -28,6 +27,9 @@ def process_question(new_question, chat_history):
     Returns:
         (str) The response text
     '''
+
+    print(f"processing question {new_question}")
+
     # build messages
     system_prompt = {
     "role": "system", 
@@ -48,6 +50,9 @@ def process_question(new_question, chat_history):
         
     # append the latest user question    
     messages.append(user_question)
+
+    #print("messages after adding chat history:")
+    #print(messages) ############################################
         
     # run the model to generate chat completion object
     chat_completion = client.chat.completions.create(
@@ -84,6 +89,8 @@ def main(text_file):
     '''
     # keep the history of previous questions and answers
     chat_history = []
+
+    print("#######################################################")
     
     # process the text file line by line
     with open(text_file, 'r') as file:
